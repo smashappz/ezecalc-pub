@@ -1,0 +1,62 @@
+{
+  "testRunner": "jest",
+  "runnerConfig": "e2e/config.json",
+  "artifacts": {
+    "rootDir": ".artifacts",
+    "plugins": {
+      "instruments": {
+        "enabled": false
+      },
+      "log": {
+        "enabled": true
+      },
+      "uiHierarchy": "enabled",
+      "screenshot": {
+        "shouldTakeAutomaticSnapshots": true,
+        "keepOnlyFailedTestsArtifacts": true,
+        "takeWhen": {
+          "testStart": false,
+          "testDone": true
+        }
+      },
+      "video": {
+        "android": {
+          "bitRate": 4000000
+        },
+        "simulator": {
+          "codec": "hevc"
+        }
+      }
+    }
+  },
+  "configurations": {
+    "android.emu.debug": {
+      "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+      "build": "cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && cd ..",
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_4_XL_API_30"
+      },
+      "artifacts": {
+        "rootDir": ".artifacts/android",
+        "plugins": {
+          "instruments": "failing"
+        }
+      }
+    },
+    "android.emu.release": {
+      "binaryPath": "android/app/build/outputs/apk/release/app-release.apk",
+      "build": "cd android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release && cd ..",
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_4_XL_API_30"
+      },
+      "artifacts": {
+        "rootDir": ".artifacts/android",
+        "plugins": {
+          "instruments": "failing"
+        }
+      }
+    }
+  }
+}
